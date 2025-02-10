@@ -22,7 +22,7 @@ const authController = {
       console.log(isPassword, "isPassword");
 
       if (isPassword) {
-        const jwtToken = createJwt(email, role);
+        const jwtToken = await createJwt(email, role);
 
         await createCookie(res, jwtToken);
 
@@ -43,6 +43,8 @@ const authController = {
     // res.send("register")
     const { email, password, repeatPassword } = req.body;
 
+    console.log("REGISTER", req.body);
+
     try {
       console.log(password, "PASSWORD");
       const role = "user";
@@ -60,7 +62,7 @@ const authController = {
           });
           console.log(user);
           user.save();
-          const jwtToken = createJwt(email, role);
+          const jwtToken = await createJwt(email, role);
           await createCookie(res, jwtToken);
 
 
@@ -76,6 +78,22 @@ const authController = {
       res.status(500).send({ msg: "Internal server error" });
     }
   }),
+  user:(async (req, res) => {
+    console.log(req.user, "USER");
+    let email = req.user.email;
+    try {
+      const user = await User.findOne({email})
+      if(user) {
+        res.status(200).send({msg: "User found", user:user})
+      }
+    } catch (error) {
+      console.log(error, "Error")
+      res.status(500).send({msg: "Bad request", error:error})
+      
+    }
+
+  })
+
 
 };
 

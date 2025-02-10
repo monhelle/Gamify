@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Gamify",
+  "name": "Plattform to buy new games with Gamify",
   "icons": [
     {
       "src": "favicon.ico",

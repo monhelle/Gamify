@@ -20,8 +20,16 @@ const gameController = {
     
     }),
     createGame: (async (req, res) => {
-        const { title, price, publisher, developer, releaseDate, status, description, shortDescription } = req.body;
-       
+        const { 
+            title,
+             price, 
+             publisher, 
+             developer, 
+             releaseDate, 
+             status, 
+             description, 
+             shortDescription } = req.body;
+       console.log(req.body);
         try {
             console.log(req.body);
             const game = new Game({
@@ -36,6 +44,7 @@ const gameController = {
             })
     
             let result = await game.save();
+            console.log(result);
             if(result._id) {
                 res.status(201).send({msg: "Successfully create game"})      
             } else {
